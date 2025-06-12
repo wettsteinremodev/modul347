@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mariadb:10.5
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_DATABASE: wiki
+      MYSQL_USER: remo
+      MYSQL_PASSWORD: 1234asdf
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wikinet
+
+  mediawiki:
+    image: mediawiki:1.39
+    container_name: mediawiki
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      MEDIAWIKI_DB_TYPE: mysql
+      MEDIAWIKI_DB_HOST: db
+      MEDIAWIKI_DB_NAME: wiki
+      MEDIAWIKI_DB_USER: remo
+      MEDIAWIKI_DB_PASSWORD: 1234asdf
+    depends_on:
+      - db
+    volumes:
+      - mediawiki_data:/var/www/html/images
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+
+    networks:
+      - wikinet
+
+volumes:
+  db_data:
+  mediawiki_data:
+
+networks:
+  wikinet:
+

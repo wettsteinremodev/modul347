@@ -1,0 +1,33 @@
+services:
+  jira:
+    image: atlassian/jira-software
+    restart: always
+    ports:
+      - "8082:8080"
+    environment:
+      - ATLASSIAN_JIRA_DB_USER=jira_user
+      - ATLASSIAN_JIRA_DB_PASSWORD=jira_pass
+      - ATLASSIAN_JIRA_DB_URL=jdbc:postgresql://db:5432/jira_db
+    networks:
+      - projekt-netzwerk
+    depends_on:
+      - db  # Ensure the database is up before Jira starts
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: jira_user
+      POSTGRES_PASSWORD: jira_pass
+      POSTGRES_DB: jira_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - projekt-netzwerk
+
+volumes:
+  db_data:
+
+networks:
+  projekt-netzwerk:
+    external: true

@@ -1,0 +1,11 @@
+portainer
+http://localhost:9000
+
+Jira
+http://localhost:8082
+
+MediaWiki
+http://localhost:8081/
+
+Wordpress
+http://localhost:8080/

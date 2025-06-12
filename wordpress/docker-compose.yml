@@ -1,0 +1,36 @@
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306  # MySQL service as the host
+      WORDPRESS_DB_USER: remo
+      WORDPRESS_DB_PASSWORD: 123
+      WORDPRESS_DB_NAME: wp_db
+    networks:
+      - projekt-netzwerk
+    depends_on:
+      - db  # Ensures db is started before wordpress
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: wp_db
+      MYSQL_USER: remo
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - projekt-netzwerk
+
+volumes:
+  db_data:
+
+networks:
+  projekt-netzwerk:
+    external: true
+
