@@ -5,16 +5,28 @@ echo "Start running the Containers"
 # Create the Docker network if it doesn't exist
 docker network inspect projekt-netzwerk >/dev/null 2>&1 || docker network create projekt-netzwerk
 
-cd "./jira"
+cd jira
 docker compose up -d
+cd ..
 
-cd "../mediawiki"
+echo "Jira DONE"
+
+
+cd mediawiki
 docker compose up -d
+cd ..
 
-cd "../monitoring(portainer)"
+echo "Media-Wiki DONE"
+
+cd monitoring_portainer
 docker compose up -d
+cd ..
 
-cd "../wordpress"
+echo "Portainer DONE"
+
+cd wordpress
 docker compose up -d
+cd ..
 
+echo "Wordpress DONE"
 echo "All Containers are running"

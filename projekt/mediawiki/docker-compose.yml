@@ -1,7 +1,7 @@
 services:
-  db:
+  wiki_db:
     image: mariadb:10.5
-    container_name: db
+    container_name: wiki_db
     restart: always
     environment:
       MYSQL_DATABASE: wiki
@@ -11,7 +11,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - wikinet
+      - projekt-netzwerk
 
   mediawiki:
     image: mediawiki:1.39
@@ -26,18 +26,18 @@ services:
       MEDIAWIKI_DB_USER: remo
       MEDIAWIKI_DB_PASSWORD: 1234asdf
     depends_on:
-      - db
+      - wiki_db
     volumes:
       - mediawiki_data:/var/www/html/images
-      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+#      - ./LocalSettings.php:/var/www/html/LocalSettings.php
 
     networks:
-      - wikinet
+      - projekt-netzwerk
 
 volumes:
   db_data:
   mediawiki_data:
 
 networks:
-  wikinet:
+  projekt-netzwerk:
 
