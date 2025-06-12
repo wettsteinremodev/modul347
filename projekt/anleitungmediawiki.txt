@@ -1,4 +1,0 @@
-docker cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
-
-um die .php datei in den container zu laden
-
