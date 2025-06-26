@@ -1,43 +1,51 @@
+version: '3.8'  # Explicit version for better compatibility
+
 services:
-  wiki_db:
-    image: mariadb:10.5
-    container_name: wiki_db
-    restart: always
+  db:
+    image: mariadb:10.7  # Pinned version as you specified
+    container_name: mariadb
+    restart: unless-stopped  # Better than 'always' for manual stops
     environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: wiki
       MYSQL_USER: remo
       MYSQL_PASSWORD: 1234asdf
-      MYSQL_ROOT_PASSWORD: rootpass
+      MARIADB_AUTO_UPGRADE: "1"  # Enable automatic upgrades
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # Changed to named volume for better management
     networks:
       - projekt-netzwerk
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   mediawiki:
-    image: mediawiki:1.39
+    image: mediawiki:latest
     container_name: mediawiki
-    restart: always
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy  # Wait for DB to be ready
     ports:
       - "8081:80"
+    volumes:
+      - mediawiki_images:/var/www/html/images  # Named volume for images
+      # LocalSettings.php should be added after initial setup
     environment:
-      MEDIAWIKI_DB_TYPE: mysql
-      MEDIAWIKI_DB_HOST: db
+      MEDIAWIKI_DB_HOST: db  # Explicit DB host
+      MEDIAWIKI_DB_TYPE: mariadb
       MEDIAWIKI_DB_NAME: wiki
       MEDIAWIKI_DB_USER: remo
       MEDIAWIKI_DB_PASSWORD: 1234asdf
-    depends_on:
-      - wiki_db
-    volumes:
-      - mediawiki_data:/var/www/html/images
-#      - ./LocalSettings.php:/var/www/html/LocalSettings.php
-
     networks:
       - projekt-netzwerk
 
 volumes:
-  db_data:
-  mediawiki_data:
+  db_data:  # Proper volume declaration
+  mediawiki_images:  # Volume for wiki images
 
 networks:
   projekt-netzwerk:
-
+    external: true
