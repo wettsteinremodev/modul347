@@ -97,7 +97,7 @@ Das Netzwerk wird über das **Bash-script** erstellt
    mkdir nameOfMyFolder && cd nameOfMyFolder
    ```
    ```bash
-   git clone "git Repository"
+   git clone https://github.com/wettsteinremodev/modul347.git
    ```
 
 2. Zum Folder mit dem **Bash-script:** `run_all.sh`
