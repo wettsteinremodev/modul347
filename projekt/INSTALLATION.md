@@ -69,7 +69,7 @@ Das Netzwerk wird über das **Bash-script** erstellt
   docker compose version
   # Docker Compose version v2.36.2
   ```
-  - Docker installieren
+  - Docker installieren wenn nicht vorhanden
   ```bash
   sudo apt-get update
   sudo apt-get install ./docker-desktop-amd64.debr
