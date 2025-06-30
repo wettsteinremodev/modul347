@@ -137,7 +137,7 @@ Das Netzwerk wird über das **Bash-script** erstellt
 
    - Datenbanktyp: MySQL
 
-   - Host: `mediawiki_db`
+   - Host: `db`
 
    - Datenbankname: `wiki`
 
@@ -147,8 +147,10 @@ Das Netzwerk wird über das **Bash-script** erstellt
 
 1. Nach Abschluss: `LocalSettings.php` herunterladen und in dein Projektverzeichnis legen.
 2. Mount sicherstellen:
-```yaml
-volumes: ./LocalSettings.php:/var/www/html/LocalSettings.php
+```bash
+docker cp LocalSettings.php mediawiki:/var/www/html/LocalSettings.php
+docker restart mediawiki
+
 ```
 
 ---
@@ -156,7 +158,7 @@ volumes: ./LocalSettings.php:/var/www/html/LocalSettings.php
 
 - WP: http://localhost:8080
 
-- Datenbankverbindung wird automatisch per `wordpress_db` hergestellt
+- Datenbankverbindung wird automatisch per `wp_db` hergestellt
 
 - Benutzername/Passwort: `remo` / `123`
 
@@ -170,7 +172,7 @@ volumes: ./LocalSettings.php:/var/www/html/LocalSettings.php
 
 - Typ: PostgreSQL
 
-- Host: `jira_db:5432`
+- Host: `jira-db-1`
 
 - Benutzer: `jira_user`
 
