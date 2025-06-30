@@ -81,7 +81,7 @@ Das Netzwerk wird über das **Bash-script** erstellt
    git -v
    # git version 2.43.0
    ```
-   - Git installieren
+   - Git installieren wenn nicht vorhanden
    ```bash
    sudo apt install git
    ```
