@@ -37,7 +37,7 @@ modul347
 
 ## Konfiguration:
 
-Die Konfiguration nutzt Docker **Compose v3.8** mit mehreren Netzwerken und Datenvolumes für Persistenz.
+Die Konfiguration nutzt Docker **Compose v3.8** mit einem Netzerk und Datenvolumes für Persistenz.
 
 4x `docker-compose.yml` wurden erstellt zu jedem einzelen Service.
 Die Datenbanken werden innerhalb der `.yml` files definiert.
