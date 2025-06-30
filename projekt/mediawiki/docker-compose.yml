@@ -21,7 +21,7 @@ services:
       - "8081:80"
     environment:
       MEDIAWIKI_DB_TYPE: mysql
-      MEDIAWIKI_DB_HOST: db
+      MEDIAWIKI_DB_HOST: wiki_db
       MEDIAWIKI_DB_NAME: wiki
       MEDIAWIKI_DB_USER: remo
       MEDIAWIKI_DB_PASSWORD: 1234asdf
