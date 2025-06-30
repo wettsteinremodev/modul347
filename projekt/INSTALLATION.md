@@ -102,7 +102,7 @@ Das Netzwerk wird über das **Bash-script** erstellt
 
 2. Zum Folder mit dem **Bash-script:** `run_all.sh`
    ```bash 
-   cd module347/projekt
+   cd modul347/projekt
    ```
 
 
